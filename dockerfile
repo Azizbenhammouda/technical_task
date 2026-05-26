@@ -4,7 +4,7 @@ FROM python:3.12-alpine AS development
 # set working directory inside the container
 WORKDIR /app
 
-# copy dependency file first (for better caching)
+# copy dependency file 
 COPY pyproject.toml .
 
 # install dependencies (including pytest)
