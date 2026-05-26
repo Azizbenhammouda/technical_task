@@ -33,7 +33,6 @@ WORKDIR /app
 
 # copy installed packages from the development stage
 COPY --from=development /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --from=development /usr/local/bin /usr/local/bin
 
 # copy only the production application file (leaving tests behind)
 COPY app.py ./
