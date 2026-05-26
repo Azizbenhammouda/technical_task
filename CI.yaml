@@ -1,28 +1,30 @@
 name: CI Pipeline
 
+# trigger pipeline on every push or pull request to the main branch
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
-  test:
+  build-and-test:
+
     runs-on: ubuntu-latest
 
     steps:
-      # get the code from repo
-      - name: checkout code
-        uses: actions/checkout@v4
+    #  checkout repository code to the runner workspace
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      # build Docker image for python app
-      - name: build docker image
-        run: |
-          cd python-app
-          docker build -t python-app .
+    #  build the development stage. 
+    - name: build development image and run tests
+      run: |
+        cd python-app
+        docker build --target development --build-arg NAME="aziz" -t python-app:dev .
 
-      # run tests inside the container
-      - name: run tests
-        run: |
-          cd python-app
-          docker run python-app pytest
+    #  build final production image.
+    - name: build final production image
+      run: |
+        cd python-app
+        docker build --target production --build-arg NAME="aziz" -t python-app:latest .
