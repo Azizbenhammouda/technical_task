@@ -32,12 +32,13 @@ ENV NAME=$NAME
 # set working directory
 WORKDIR /app
 
-# copy files
-COPY app.py .
-COPY pyproject.toml .
+# reuse installed packages from development stage
+COPY --from=development /usr/local/lib/python3.12 /usr/local/lib/python3.12
+COPY --from=development /usr/local/bin /usr/local/bin
 
-# install only production dependencies
-RUN pip install --no-cache-dir .
+
+# copy only needed application files
+COPY app.py .
 
 # default command to run the application
 CMD ["python", "app.py"]
