@@ -17,7 +17,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    #  build the development stage. 
+    #  build the development stage and tests ( we used RUN pytest in the dockerfile in development stage)
     - name: build development image and run tests
       run: |
         cd python-app
