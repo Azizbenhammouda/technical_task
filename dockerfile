@@ -1,6 +1,12 @@
 # development stage: used for building and testing the application
 FROM python:3.12-alpine AS development
 
+# build-time argument (passed during docker build)
+ARG NAME="Aziz"
+
+# convert build argument into environment variable
+ENV NAME=$NAME
+
 # set working directory inside the container
 WORKDIR /app
 
